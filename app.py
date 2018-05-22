@@ -43,7 +43,8 @@ def makeWebhookResult(req):
         #"displayText": speech, 
         #"data": {},
         #"contextOut": [],
-            "source": "FinancialAidChatBot",
+            "source": "FinancialAidChatBot"
+
         #    "payload" : {
         #        "platform" : "facebook",
         #        "quickReplies":{
@@ -57,17 +58,17 @@ def makeWebhookResult(req):
         #    }
         #}
 
-        "payload": {
-            "facebook" : {
-                "text": speech,
-                "quick_replies":[
-                {
-                    "content_type":"text",
-                    "title":"Search",
-                }
-                ]
-            }
-        }
+        #"payload": {
+        #    "facebook" : {
+        #        "text": speech,
+        #        "quick_replies":[
+        #        {
+        #            "content_type":"text",
+        #            "title":"Search",
+        #        }
+        #        ]
+        #    }
+        #}
     }
 
 if __name__ == '__main__':
