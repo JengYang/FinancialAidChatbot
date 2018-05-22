@@ -26,8 +26,8 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    #if req.get("result").get("action") != "financialAid":
-      #  return {}
+    if req.get("queryResult").get("intent").get("action") != "financialAid":
+        return {}
     result = req.get("result")
    # parameters = result.get("parameters")
     #zone = parameters.get("bank-name")
@@ -39,8 +39,9 @@ def makeWebhookResult(req):
     print("Response:")
     print(speech)
     return {
-        "speech": speech,
-        "displayText": speech,
+        "fulfillmentText":speech,
+        #"speech": speech, only available to V1
+        #"displayText": speech, 
         #"data": {},
         #"contextOut": [],
         "source": "FinancialAidChatBot"
