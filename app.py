@@ -26,9 +26,9 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    if req.get("intent").get("action") != "financialAid":
+    if req.get("queryResult").get("action") != "financialAid": 
         return {}
-    result = req.get("result")
+    #result = req.get("result")
    # parameters = result.get("parameters")
     #zone = parameters.get("bank-name")
 
