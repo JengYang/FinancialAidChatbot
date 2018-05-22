@@ -44,29 +44,31 @@ def makeWebhookResult(req):
         #"data": {},
         #"contextOut": [],
             "source": "FinancialAidChatBot",
-            "payload" : {
-                "platform" : "facebook",
-                "quickReplies":{
-                    "title": speech,
-                    "quickReplies":[
-                        "PTPTN",
-                        "Scholarship",
-                        "Study loan"
-                    ]
-                }
-            }
-        }
-        #"payload": {
-        #    "facebook" : {
-       #         "text": speech,
-       #         "quick_replies":[
-       #         {
-        #            "content_type":"text",
-        #            "title":"Search",
+        #    "payload" : {
+        #        "platform" : "facebook",
+        #        "quickReplies":{
+        #            "title": speech,
+        #            "quickReplies":[
+        #                "PTPTN",
+        #                "Scholarship",
+        #                "Study loan"
+        #            ]
         #        }
-        #        ]
         #    }
         #}
+
+        "payload": {
+            "facebook" : {
+                "text": speech,
+                "quick_replies":[
+                {
+                    "content_type":"text",
+                    "title":"Search",
+                }
+                ]
+            }
+        }
+    }
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
