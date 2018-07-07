@@ -46,7 +46,7 @@ def makeWebhookResult(req):
             #"source": "FinancialAidChatBot",
             "fulfillmentMessages":[
                 {
-                    #"platform": "facebook",
+                    "platform": "FACEBOOK",
                     "quickReplies":{
                         "title": speech,
                         "quickReplies":[
