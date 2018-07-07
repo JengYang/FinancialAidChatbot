@@ -52,39 +52,19 @@ def makeWebhookResult(req):
                         "quickReplies":[
                             "PTPTN",
                             "Scholarship",
-                            "Study loan"   
+                            "Study loan"  
                             ]
                        
                         }
                     
                     }
                 ]
-
-        #    "payload" : {
-        #        "platform" : "facebook",
-        #        "quickReplies":{
-        #            "title": speech,
-        #            "quickReplies":[
-        #                "PTPTN",
-        #                "Scholarship",
-        #                "Study loan"
-        #            ]
-        #        }
-        #    }
-        #}
-
-        #"payload": {
-        #    "facebook" : {
-        #        "text": speech,
-        #        "quick_replies":[
-        #        {
-        #            "content_type":"text",
-        #            "title":"Search",
-        #        }
-        #        ]
-        #    }
-        #}
     }
+    elif req.get("queryResult").get("action") == "sub":
+        id = req.get("originalDetectIntentRequest").get("payload").get("sender").get("id")
+        return {
+            "fulfillmentText":id
+            }
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
