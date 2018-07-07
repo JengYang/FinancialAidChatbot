@@ -47,13 +47,16 @@ def makeWebhookResult(req):
             "fulfillmentMessages":[
                 {
                     "platform": "facebook",
-                    "quickReplies":[
-                        "PTPTN",
-                        "Scholarship",
-                        "Study loan"
-                        ],
-                    "title": "Financial Aid",
-                    "type":2
+                    "quickReplies":{
+                        "title": "Financial Aid",
+                        "quickReplies":[
+                            "PTPTN",
+                            "Scholarship",
+                            "Study loan"   
+                            ]
+                       
+                        }
+                    
                     }
                 ]
 
