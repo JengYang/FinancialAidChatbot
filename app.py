@@ -38,7 +38,7 @@ def makeWebhookResult(req):
         print("Response:")
         print(speech)
         return {
-            #"fulfillmentText":speech,
+            "fulfillmentText":speech,
         #"speech": speech, only available to V1
         #"displayText": speech, 
         #"data": {},
@@ -46,7 +46,7 @@ def makeWebhookResult(req):
             #"source": "FinancialAidChatBot",
             "fulfillmentMessages":[
                 {
-                    "platform": "facebook",
+                    #"platform": "facebook",
                     "quickReplies":{
                         "title": "Financial Aid",
                         "quickReplies":[
