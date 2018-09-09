@@ -61,9 +61,9 @@ def makeWebhookResult(req):
                 ]
     }
     elif req.get("queryResult").get("action") == "sub":
-        id = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
+        sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
         return {
-            "fulfillmentText":id
+            "fulfillmentText":sender
             }
 
 if __name__ == '__main__':
