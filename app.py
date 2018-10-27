@@ -6,6 +6,9 @@ import os
 from flask import Flask
 from flask import request
 from flask import make_response
+from fa_firebase import firebaseCRUD
+from datetime import datetime as dt
+import datetime
 
 app = Flask(__name__)
 
@@ -26,6 +29,7 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
+    firebase = firebaseCRUD()
     if req.get("queryResult").get("action") == "financialAid": 
         #return {}
     #result = req.get("result")
@@ -65,7 +69,22 @@ def makeWebhookResult(req):
         return {
             "fulfillmentText":sender
             }
-
+    elif req.get("queryResult").get("action") == "getAvailable":
+        if req.get("queryResult").get("parameters").get("financialAid").lower() == 'financial aid':
+            fa = firebase.retrieveFA()
+            name = []
+            present = datetime.date.today()
+            for x in fa:
+                start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
+                end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
+                if present >= start and present <= end:
+                    name.append(x.get('name'))
+            msg = 'The available financial aids are : '
+            for n in name:
+                msg += '\u2022 ' + n + '\n'
+            return {
+                "fulfillmentText":msg
+                }
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
