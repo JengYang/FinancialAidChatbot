@@ -70,21 +70,40 @@ def makeWebhookResult(req):
             "fulfillmentText":sender
             }
     elif req.get("queryResult").get("action") == "getAvailable":
-        if req.get("queryResult").get("parameters").get("financialAid").lower() == 'financial aid':
-            fa = firebase.retrieveFA()
-            name = []
-            present = datetime.date.today()
-            for x in fa:
-                start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
-                end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
-                if present >= start and present <= end:
+        msg = availableFA(req)       
+        return {
+            "fulfillmentText":msg
+            }
+        
+            
+
+def availableFA(req):
+    fa = firebase.retrieveFA()
+    name = []
+    present = datetime.date.today()
+    if req.get("queryResult").get("parameters").get("financialAid").lower() == 'financial aid':
+        for x in fa:
+            start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
+            end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
+            if present >= start and present <= end:
+                name.append(x.get('name'))
+        msg = 'The available financial aids are : '
+        for n in name:
+            msg += '\n\u2022 ' + n
+            
+    elif req.get("queryResult").get("parameters").get("financialAid").lower() == 'scholarship':
+        for x in fa:
+            start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
+            end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
+            if present >= start and present <= end:
+                if x.get('type') == 'Scholarship':
                     name.append(x.get('name'))
-            msg = 'The available financial aids are : '
-            for n in name:
-                msg += '\u2022 ' + n + '\n'
-            return {
-                "fulfillmentText":msg
-                }
+        msg = 'The available scholarships are : '
+        for n in name:
+            msg += '\n\u2022 ' + n
+            
+    return msg
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
