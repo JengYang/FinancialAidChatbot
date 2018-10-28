@@ -65,18 +65,25 @@ def makeWebhookResult(req):
     }
     elif req.get("queryResult").get("action") == "sub":
         sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
-        return {
-            "fulfillmentText":sender
-            }
+        
     elif req.get("queryResult").get("action") == "getAvailable":
         msg = availableFA(req)       
-        return {
-            "fulfillmentText":msg
-            }
-    #elif req.get("queryResult").get("action") == "amount":
         
-        
+    elif req.get("queryResult").get("action") == "amount":
+        firebase = firebaseCRUD()
+        fa = firebase.retrieveFA()
+        name = req.get("queryResult").get("parameters").get("financialAid")
+        msg = ""
+        for x in fa:
+            if x.get('name').lower() == name.lower():
+                msg = "The amount you can get are "
+                msg += x.get('offerAmt')
+        if not msg:
+            msg = "I do not get what u say.Please try again."
             
+    return {
+        "fulfillmentText":msg
+        }
 
 def availableFA(req):
     firebase = firebaseCRUD()
