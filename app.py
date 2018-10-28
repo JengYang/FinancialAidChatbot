@@ -74,6 +74,8 @@ def makeWebhookResult(req):
             
     elif req.get("queryResult").get("action") == "applicationPeriod":
         msg = getPeriod(req)
+    elif req.get("queryResult").get("action") == "criteria":
+        msg = getCriteria(req)
     return {
         "fulfillmentText":msg
         }
@@ -159,12 +161,25 @@ def getPeriod(req):
     msg = ""
     for x in fa:
         if x.get('name').lower() == name.lower():
-            msg = "The application period of " + x.get('name') +'is'
+            msg = "The application period of " + x.get('name') +' is '
             msg += 'from ' + x.get('startDate') + ' to ' + x.get('endDate')
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
 
+def getCriteria(req):
+    firebase = firebaseCRUD()
+    fa = firebase.retrieveFA()
+    name = req.get("queryResult").get("parameters").get("financialAid")
+    msg = ""
+    for x in fa:
+        if x.get('name').lower() == name.lower():
+            
+            msg = "The criteria of " + x.get('name') +' are '
+            msg += '\n\u2022 ' + x.get('startDate') + ' to ' + x.get('endDate')
+    if not msg:
+        msg = "I do not find any financial aid called " + name
+    return msg
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
