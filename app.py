@@ -70,17 +70,10 @@ def makeWebhookResult(req):
         msg = availableFA(req)       
         
     elif req.get("queryResult").get("action") == "amount":
-        firebase = firebaseCRUD()
-        fa = firebase.retrieveFA()
-        name = req.get("queryResult").get("parameters").get("financialAid")
-        msg = ""
-        for x in fa:
-            if x.get('name').lower() == name.lower():
-                msg = "The amount you can get are "
-                msg += x.get('offerAmt')
-        if not msg:
-            msg = "I do not find any financial aid called " + name
+        msg = getAmt(req)
             
+    elif req.get("queryResult").get("action") == "applicationPeriod":
+        msg = getPeriod(req)
     return {
         "fulfillmentText":msg
         }
@@ -145,6 +138,33 @@ def availableFA(req):
     else:
         msg = "I do not get what you say, please try again."
     return msg
+
+def getAmt(req):
+    firebase = firebaseCRUD()
+    fa = firebase.retrieveFA()
+    name = req.get("queryResult").get("parameters").get("financialAid")
+    msg = ""
+    for x in fa:
+        if x.get('name').lower() == name.lower():
+            msg = "The amount you can get are "
+            msg += x.get('offerAmt')
+    if not msg:
+        msg = "I do not find any financial aid called " + name
+    return msg
+
+def getPeriod(req):
+    firebase = firebaseCRUD()
+    fa = firebase.retrieveFA()
+    name = req.get("queryResult").get("parameters").get("financialAid")
+    msg = ""
+    for x in fa:
+        if x.get('name').lower() == name.lower():
+            msg = "The application period of " + x.get('name') +'is'
+            msg += 'from ' + x.get('startDate') + ' to ' + x.get('endDate')
+    if not msg:
+        msg = "I do not find any financial aid called " + name
+    return msg
+
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
