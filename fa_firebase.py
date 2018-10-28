@@ -97,10 +97,10 @@ class firebaseCRUD:
     def retrieveFA(self):
         fa = []
         fas = self.db.child("Financial_aid").get()
-        if fas.val():
-            for x in fas.each():
+        #if fas.val():
+        for x in fas.each():
                 #if x.key() == faId:
-                fa.append(x.val())
+            fa.append(x.val())
         return fa
 
     def retrieveFAWithKey(self):
