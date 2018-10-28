@@ -94,7 +94,7 @@ def allFA(req):
         for x in fa:
             name.append(x.get('name'))
         if name:
-            msg = 'List of financial aids. Some of them may not available now: '
+            msg = "List of financial aids. Some of them may not available now: "
             for n in name:
                 msg += '\n\u2022 ' + n
         else:
