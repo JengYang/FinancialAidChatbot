@@ -176,9 +176,10 @@ def getCriteria(req):
         if y.get('name').lower() == name.lower():
             faId = x
             criteria = firebase.retrieveCritList(faId)
-            msg = "The criteria of " + x.get('name') +' are '
+            msg = "The criteria of " + y.get('name') +' are '
             for c in criteria:
-                msg += '\n\u2022 ' + c 
+                msg += '\n\u2022 ' + c
+            break
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
