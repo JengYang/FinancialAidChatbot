@@ -90,15 +90,57 @@ def allFA(req):
     firebase = firebaseCRUD()
     fa = firebase.retrieveFA()
     name = []
+    if req.get("queryResult").get("parameters").get("financialAid").lower() == 'financial aid':
+        for x in fa:
+            name.append(x.get('name'))
+        if name:
+            msg = 'List of financial aids. Some of them may not available now: '
+            for n in name:
+                msg += '\n\u2022 ' + n
+        else:
+            msg = "There is no financial aid right now."
+        
+            
+    elif req.get("queryResult").get("parameters").get("financialAid") == 'scholarship':
+        for x in fa:
+            start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
+            end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
+            if present >= start and present <= end:
+                if x.get('type') == 'Scholarship':
+                    name.append(x.get('name'))
+        if name:
+            msg = 'List of scholarships.Some of them may not available now: '
+            for n in name:
+                msg += '\n\u2022 ' + n
+        else:
+            msg = "There is no scholarship right now."
+    elif req.get("queryResult").get("parameters").get("financialAid") == 'study loan':       
+        for x in fa:
+            start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
+            end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
+            if present >= start and present <= end:
+                if x.get('type') == 'Study Loan':
+                    name.append(x.get('name'))
+        if name:
+            msg = 'List of study loans. Some of them may not available now: '
+            for n in name:
+                msg += '\n\u2022 ' + n
+        else:
+            msg = "There is no study loan right now"
+    elif req.get("queryResult").get("parameters").get("financialAid") == 'PTPTN':       
+        for x in fa:
+            start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
+            end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
+            if present >= start and present <= end:
+                if x.get('type') == 'PTPTN':
+                    name.append(x.get('name'))
+        if name:
+            msg = 'List of PTPTN : '
+            for n in name:
+                msg += '\n\u2022 ' + n
+        else:
+            msg = "There is no PTPTN."
     
-    for x in fa:
-        name.append(x.get('name'))
-    if name:
-        msg = "List of financial aids. Some of them may not available now :
-        for n in name:
-            msg += '\n\u2022 ' + n
-    else:
-        msg = "There is no financial aid right now."
     return msg
 
 def availableFA(req):
@@ -118,6 +160,7 @@ def availableFA(req):
                 msg += '\n\u2022 ' + n
         else:
             msg = "There is no financial aid available right now."
+        
             
     elif req.get("queryResult").get("parameters").get("financialAid") == 'scholarship':
         for x in fa:
