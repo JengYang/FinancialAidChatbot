@@ -73,6 +73,8 @@ def makeWebhookResult(req):
         return {
             "fulfillmentText":msg
             }
+    elif req.get("queryResult").get("action") == "amount":
+        
         
             
 
@@ -87,9 +89,12 @@ def availableFA(req):
             end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
             if present >= start and present <= end:
                 name.append(x.get('name'))
-        msg = 'The available financial aids are : '
-        for n in name:
-            msg += '\n\u2022 ' + n
+        if name:
+            msg = 'The available financial aids are : '
+            for n in name:
+                msg += '\n\u2022 ' + n
+        else:
+            msg = "There is no financial aid available right now."
             
     elif req.get("queryResult").get("parameters").get("financialAid") == 'scholarship':
         for x in fa:
@@ -98,9 +103,12 @@ def availableFA(req):
             if present >= start and present <= end:
                 if x.get('type') == 'Scholarship':
                     name.append(x.get('name'))
-        msg = 'The available scholarships are : '
-        for n in name:
-            msg += '\n\u2022 ' + n
+        if name:
+            msg = 'The available scholarships are : '
+            for n in name:
+                msg += '\n\u2022 ' + n
+        else:
+            msg = "There is no scholarship available right now."
     elif req.get("queryResult").get("parameters").get("financialAid") == 'study loan':       
         for x in fa:
             start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
@@ -108,9 +116,12 @@ def availableFA(req):
             if present >= start and present <= end:
                 if x.get('type') == 'Study Loan':
                     name.append(x.get('name'))
-        msg = 'The available study loans are : '
-        for n in name:
-            msg += '\n\u2022 ' + n
+        if name:
+            msg = 'The available study loans are : '
+            for n in name:
+                msg += '\n\u2022 ' + n
+        else:
+            msg = "There is no study loan available right now"
     elif req.get("queryResult").get("parameters").get("financialAid") == 'PTPTN':       
         for x in fa:
             start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
@@ -118,9 +129,14 @@ def availableFA(req):
             if present >= start and present <= end:
                 if x.get('type') == 'PTPTN':
                     name.append(x.get('name'))
-        msg = 'The available PTPTN are : '
-        for n in name:
-            msg += '\n\u2022 ' + n
+        if name:
+            msg = 'The available PTPTN are : '
+            for n in name:
+                msg += '\n\u2022 ' + n
+        else:
+            msg = "PTPTN is not available right now"
+    else:
+        msg = "I do not get what you say, please try again."
     return msg
 
 if __name__ == '__main__':
