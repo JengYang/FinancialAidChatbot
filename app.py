@@ -80,9 +80,26 @@ def makeWebhookResult(req):
         msg = getDocument(req)
     elif req.get("queryResult").get("action") == "procedure":
         msg = getProcedure(req)
+    elif req.get("queryResult").get("action") == "AllFA":
+        msg = getProcedure(req)
     return {
         "fulfillmentText":msg
         }
+
+def allFA(req):
+    firebase = firebaseCRUD()
+    fa = firebase.retrieveFA()
+    name = []
+    
+    for x in fa:
+        name.append(x.get('name'))
+    if name:
+        msg = "List of financial aids. Some of them may not available now :
+        for n in name:
+            msg += '\n\u2022 ' + n
+    else:
+        msg = "There is no financial aid right now."
+    return msg
 
 def availableFA(req):
     firebase = firebaseCRUD()
