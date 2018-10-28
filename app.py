@@ -79,7 +79,7 @@ def makeWebhookResult(req):
                 msg = "The amount you can get are "
                 msg += x.get('offerAmt')
         if not msg:
-            msg = "I do not get what u say.Please try again."
+            msg = "I do not find any financial aid called " + name
             
     return {
         "fulfillmentText":msg
