@@ -172,7 +172,7 @@ def getCriteria(req):
     fa = firebase.retrieveFAWithKey()
     name = req.get("queryResult").get("parameters").get("financialAid")
     msg = ""
-    for x,y in fa:
+    for x,y in fa.items():
         if y.get('name').lower() == name.lower():
             faId = x
             criteria = firebase.retrieveCritList(faId)
