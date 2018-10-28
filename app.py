@@ -29,7 +29,6 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    firebase = firebaseCRUD()
     if req.get("queryResult").get("action") == "financialAid": 
         #return {}
     #result = req.get("result")
@@ -78,6 +77,7 @@ def makeWebhookResult(req):
             
 
 def availableFA(req):
+    firebase = firebaseCRUD()
     fa = firebase.retrieveFA()
     name = []
     present = datetime.date.today()
