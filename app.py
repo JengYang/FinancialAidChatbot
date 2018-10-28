@@ -91,7 +91,7 @@ def availableFA(req):
         for n in name:
             msg += '\n\u2022 ' + n
             
-    elif req.get("queryResult").get("parameters").get("financialAid").lower() == 'scholarship':
+    elif req.get("queryResult").get("parameters").get("financialAid") == 'scholarship':
         for x in fa:
             start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
             end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
@@ -101,7 +101,26 @@ def availableFA(req):
         msg = 'The available scholarships are : '
         for n in name:
             msg += '\n\u2022 ' + n
-            
+    elif req.get("queryResult").get("parameters").get("financialAid") == 'study loan':       
+        for x in fa:
+            start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
+            end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
+            if present >= start and present <= end:
+                if x.get('type') == 'Study Loan':
+                    name.append(x.get('name'))
+        msg = 'The available study loans are : '
+        for n in name:
+            msg += '\n\u2022 ' + n
+    elif req.get("queryResult").get("parameters").get("financialAid") == 'PTPTN':       
+        for x in fa:
+            start = dt.strptime(x.get('startDate'),"%Y-%m-%d").date()
+            end = dt.strptime(x.get('endDate'),"%Y-%m-%d").date()
+            if present >= start and present <= end:
+                if x.get('type') == 'PTPTN':
+                    name.append(x.get('name'))
+        msg = 'The available PTPTN are : '
+        for n in name:
+            msg += '\n\u2022 ' + n
     return msg
 
 if __name__ == '__main__':
