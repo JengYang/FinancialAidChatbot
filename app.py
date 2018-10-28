@@ -169,14 +169,16 @@ def getPeriod(req):
 
 def getCriteria(req):
     firebase = firebaseCRUD()
-    fa = firebase.retrieveFA()
+    fa = firebase.retrieveFAWithKey()
     name = req.get("queryResult").get("parameters").get("financialAid")
     msg = ""
-    for x in fa:
-        if x.get('name').lower() == name.lower():
-            
+    for x,y in fa:
+        if y.get('name').lower() == name.lower():
+            faId = x
+            criteria = firebase.retrieveCritList(faId)
             msg = "The criteria of " + x.get('name') +' are '
-            msg += '\n\u2022 ' + x.get('startDate') + ' to ' + x.get('endDate')
+            for c in criteria:
+                msg += '\n\u2022 ' + c 
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg

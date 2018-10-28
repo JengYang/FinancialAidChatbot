@@ -108,8 +108,9 @@ class firebaseCRUD:
         fas = self.db.child("Financial_aid").get()
         if fas.val():
             for x in fas.each():
+                fa[x.key()] = x.val()
                 #if x.key() == faId:
-                fa.append(x.val())
+                #fa.append(x.val())
         return fa
     #return the whole criteria object (include criteria id)
     def retrieveCriteria(self,faId):
@@ -201,6 +202,4 @@ class firebaseCRUD:
         #print(criteria)
         return procedure
 
-#i = firebaseCRUD()
-#fa = i.retrieveFAWithKey()
-#print(fa)
+
