@@ -73,7 +73,7 @@ def makeWebhookResult(req):
         return {
             "fulfillmentText":msg
             }
-    elif req.get("queryResult").get("action") == "amount":
+    #elif req.get("queryResult").get("action") == "amount":
         
         
             
