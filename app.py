@@ -180,7 +180,7 @@ def getCriteria(req):
         if y.get('name').lower() == name.lower():
             faId = x
             criteria = firebase.retrieveCritList(faId)
-            msg = "The criteria of " + y.get('name') +' are:'
+            msg = "The criteria of applying " + y.get('name') +' are:'
             for c in criteria:
                 msg += '\n\u2022 ' + c
             break
@@ -197,7 +197,7 @@ def getDocument(req):
         if y.get('name').lower() == name.lower():
             faId = x
             document = firebase.retrieveDocList(faId)
-            msg = "The documents required of " + y.get('name') +' are:'
+            msg = "The documents required to apply " + y.get('name') +' are:'
             for d in document:
                 msg += '\n\u2022 ' + d
             break
