@@ -76,6 +76,10 @@ def makeWebhookResult(req):
         msg = getPeriod(req)
     elif req.get("queryResult").get("action") == "criteria":
         msg = getCriteria(req)
+    elif req.get("queryResult").get("action") == "document":
+        msg = getDocument(req)
+    elif req.get("queryResult").get("action") == "procedure":
+        msg = getProcedure(req)
     return {
         "fulfillmentText":msg
         }
@@ -176,9 +180,43 @@ def getCriteria(req):
         if y.get('name').lower() == name.lower():
             faId = x
             criteria = firebase.retrieveCritList(faId)
-            msg = "The criteria of " + y.get('name') +' are '
+            msg = "The criteria of " + y.get('name') +' are:'
             for c in criteria:
                 msg += '\n\u2022 ' + c
+            break
+    if not msg:
+        msg = "I do not find any financial aid called " + name
+    return msg
+
+def getDocument(req):
+    firebase = firebaseCRUD()
+    fa = firebase.retrieveFAWithKey()
+    name = req.get("queryResult").get("parameters").get("financialAid")
+    msg = ""
+    for x,y in fa.items():
+        if y.get('name').lower() == name.lower():
+            faId = x
+            document = firebase.retrieveDocList(faId)
+            msg = "The documents required of " + y.get('name') +' are:'
+            for d in document:
+                msg += '\n\u2022 ' + d
+            break
+    if not msg:
+        msg = "I do not find any financial aid called " + name
+    return msg
+
+def getProcedure(req):
+    firebase = firebaseCRUD()
+    fa = firebase.retrieveFAWithKey()
+    name = req.get("queryResult").get("parameters").get("financialAid")
+    msg = ""
+    for x,y in fa.items():
+        if y.get('name').lower() == name.lower():
+            faId = x
+            procedure = firebase.retrieveProList(faId)
+            msg = "The procedure to apply " + y.get('name') +' are:'
+            for p in procedure:
+                msg += '\n\u2022 ' + p
             break
     if not msg:
         msg = "I do not find any financial aid called " + name
