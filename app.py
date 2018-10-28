@@ -81,7 +81,7 @@ def makeWebhookResult(req):
     elif req.get("queryResult").get("action") == "procedure":
         msg = getProcedure(req)
     elif req.get("queryResult").get("action") == "AllFA":
-        msg = getProcedure(req)
+        msg = allFA(req)
     return {
         "fulfillmentText":msg
         }
