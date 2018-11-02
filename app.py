@@ -140,7 +140,9 @@ def allFA(req):
                 msg += '\n\u2022 ' + n
         else:
             msg = "There is no PTPTN."
-    
+    else:
+        msg = "I do not get what you say, please try again."
+
     return msg
 
 def availableFA(req):
