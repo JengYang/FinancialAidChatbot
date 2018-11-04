@@ -1,7 +1,6 @@
 import pyrebase
 import re
 import datetime
-from datetime import datetime as dt
 class firebaseCRUD:
     
     config = {
@@ -89,5 +88,27 @@ class firebaseCRUD:
                    # criteria[CId] = c
         #print(criteria)
         return procedure
+
+    def addSub(self,subscription):
+        subId = retrieveNextSubId(self)
+        self.db.child("Subscription").child(subId).set(subscription)
+        
+    def retrieveNextSubId(self):
+        lastId = ""
+        subIds = self.db.child("Subscription").shallow().get()
+        
+        if subIds.val():
+            for x in subIds.val():
+                if not lastId:
+                    lastId = x
+                elif lastId < x:
+                    lastId = x
+            splitId = re.split('(\d+)',lastId)
+            lastId = int(splitId[1]) + 1
+            lastId = 'S' + "{0:0=4d}".format(lastId)
+            
+        else:
+            lastId = "S0001"
+        return lastId
 
 

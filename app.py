@@ -67,7 +67,25 @@ def makeWebhookResult(req):
                 ]
     }
     elif req.get("queryResult").get("action") == "sub":
+        firebase = firebaseCRUD()
+        fa = firebase.retrieveFA()
+        name = req.get("queryResult").get("parameters").get("financialAid")
         sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
+        msg = ""
+        for x in fa:
+            if x.get('name').lower() == name.lower():
+                msg = "You subscribed to " + name
+                subscription = {
+                        "name": name,
+                        "date": datetime.date.today(),
+                        "status": 'active',
+                        "fbId": sender
+                    }
+                firebase.addSub(subscription)
+        if not msg:
+            msg = "I do not find any financial aid called " + name
+        return msg
+        
         
     elif req.get("queryResult").get("action") == "getAvailable":
         msg = availableFA(req)       
