@@ -96,7 +96,7 @@ class firebaseCRUD:
             "fbId": subscription['fbId']
             }
         subId = self.retrieveNextSubId()
-        self.db.child("Subscription").child(subscription['id']).child(subId).set(subscription)
+        self.db.child("Subscription").child(subscription['id']).child(subId).set(sub)
         
     def retrieveNextSubId(self):
         lastId = ""
