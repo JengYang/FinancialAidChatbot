@@ -12,8 +12,11 @@ import datetime
 
 app = Flask(__name__)
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/')
+def index():
+    return '<h1>App deployed</h1>'
 
+@app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
