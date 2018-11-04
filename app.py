@@ -77,7 +77,7 @@ def makeWebhookResult(req):
                 msg = "You subscribed to " + name
                 subscription = {
                         "name": name,
-                        "date": datetime.date.today(),
+                        "date": datetime.date.today().strftime("%Y-%m-%d"),
                         "status": 'active',
                         "fbId": sender
                     }
