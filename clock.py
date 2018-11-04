@@ -7,7 +7,7 @@ sched = BlockingScheduler()
 #def timed_job():
 #    subscription.sendMsg()
 
-@sched.scheduled_job('cron', day_of_week='mon-sun', hour=17)
+@sched.scheduled_job('cron', day_of_week='0-6', hour=10)
 def scheduled_job():
     subscription.sendMsg()
 
