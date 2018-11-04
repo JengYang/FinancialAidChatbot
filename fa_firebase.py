@@ -110,10 +110,10 @@ class firebaseCRUD:
                     lastId = x
             splitId = re.split('(\d+)',lastId)
             lastId = int(splitId[1]) + 1
-            lastId = 'S' + "{0:0=4d}".format(lastId)
+            lastId = 'Sub' + "{0:0=4d}".format(lastId)
             
         else:
-            lastId = "S0001"
+            lastId = "Sub0001"
         return lastId
 
 
