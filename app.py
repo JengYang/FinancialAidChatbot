@@ -72,7 +72,7 @@ def makeWebhookResult(req):
         name = req.get("queryResult").get("parameters").get("financialAid")
         sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
         msg = ""
-        for x,y in fa:
+        for x,y in fa.items():
             if y.get('name').lower() == name.lower():
                 msg = "You subscribed to " + y.get('name')
                 subscription = {
