@@ -3,4 +3,5 @@ from fbbotw import fbbotw
 #...
 
 #test for sending message
-fbbotw.post_text_message('2160418613974674',"Hi,XD",'RESPONSE',None) 
+def sendMsg():
+    fbbotw.post_text_message('2160418613974674',"Hi,XD",'RESPONSE',None) 
