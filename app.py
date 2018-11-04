@@ -74,7 +74,7 @@ def makeWebhookResult(req):
         msg = ""
         for x,y in fa.items():
             if y.get('name').lower() == name.lower():
-                msg = "You subscribed to " + y.get('name')
+                msg = "You are now subscribed to " + y.get('name')
                 subscription = {
                         "id": x,
                         "date": datetime.date.today().strftime("%Y-%m-%d"),

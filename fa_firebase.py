@@ -116,4 +116,20 @@ class firebaseCRUD:
             lastId = "Sub0001"
         return lastId
 
+    def retrieveSub(self,faId):
+        doc = []
+        docs = self.db.child("Subscription").get()
+        #print(criterion.val())
+        for x in docs.each():
+            if x.key() == faId:
+                print(x.val().values())
+                for item in x.val().values():
+                    for value in list(item.values()):
+                        doc.append(value)
+                    #for value in item.val():
+                   # criteria[CId] = c
+        #print(criteria)
+        return doc
 
+firebase = firebaseCRUD()
+print(firebase.retrieveSub('F0003'))
