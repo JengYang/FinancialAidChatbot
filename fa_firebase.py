@@ -90,8 +90,13 @@ class firebaseCRUD:
         return procedure
 
     def addSub(self,subscription):
+        sub = {
+            "date": subscription['date'],
+            "status": subscription['status'],
+            "fbId": subscription['fbId']
+            }
         subId = self.retrieveNextSubId()
-        self.db.child("Subscription").child(subId).set(subscription)
+        self.db.child("Subscription").child(subscription['id']).child(subId).set(subscription)
         
     def retrieveNextSubId(self):
         lastId = ""
