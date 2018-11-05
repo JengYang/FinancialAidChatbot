@@ -327,7 +327,7 @@ def subscribeType(req):
         if fa:
             msg = 'List of study loan u can subscribe. Type "Subscribe" followed by the study loan name to subscribe'
             for x,y in fa.items():
-                if y.get('type') == 'Study Loan' 
+                if y.get('type') == 'Study Loan': 
                     msg +=  '\n\u2022 ' + y.get('name')
         else:
             msg = "There is no study loan right now."
@@ -336,7 +336,7 @@ def subscribeType(req):
         if fa:
             msg = 'List of scholarship u can subscribe. Type "Subscribe" followed by the scholarship name to subscribe'
             for x,y in fa.items():
-                if y.get('type') == 'scholarship' 
+                if y.get('type') == 'scholarship': 
                     msg +=  '\n\u2022 ' + y.get('name')
         else:
             msg = "There is no scholarship right now."
@@ -345,7 +345,7 @@ def subscribeType(req):
         if fa:
             msg = 'List of PTPTN u can subscribe. Type "Subscribe" followed by the PTPTN name to subscribe'
             for x,y in fa.items():
-                if y.get('type') == 'PTPTN' 
+                if y.get('type') == 'PTPTN':
                     msg +=  '\n\u2022 ' + y.get('name')
         else:
             msg = "There is no PTPTN right now."
