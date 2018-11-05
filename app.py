@@ -74,6 +74,11 @@ def makeWebhookResult(req):
         msg = ""
         for x,y in fa.items():
             if y.get('name').lower() == name.lower():
+                subList = firebase.retrieveSub(x)
+                for s in subList:
+                    if s.get('fbId') == sender:
+                        msg = "You already subscribed to " + y.get('name')
+                        return msg
                 msg = "You are now subscribed to " + y.get('name')
                 subscription = {
                         "id": x,
