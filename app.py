@@ -72,7 +72,7 @@ def makeWebhookResult(req):
     elif req.get("queryResult").get("action") == "subType":
         msg = subscribeType(req)
 
-    elif req.get("queryResult").get("action") == "unsub":
+    elif req.get("queryResult").get("action") == "cancelSub":
         msg = "aaa"
         #unsubscribe(req)
         
