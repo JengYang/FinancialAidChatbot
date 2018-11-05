@@ -92,7 +92,7 @@ class firebaseCRUD:
     def addSub(self,subscription):
         sub = {
             "date": subscription['date'],
-            "status": subscription['status'],
+##            "status": subscription['status'],
             "fbId": subscription['fbId']
             }
         subId = self.retrieveNextSubId()
