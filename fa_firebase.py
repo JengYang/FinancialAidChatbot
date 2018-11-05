@@ -121,7 +121,7 @@ class firebaseCRUD:
     def retrieveSub(self,faId): 
         sub = []
         subs = self.db.child("Subscription").get()
-        if subs:
+        if subs.val():
             for x in subs.each():
                 if x.key() == faId:
                     for item in x.val().values():
