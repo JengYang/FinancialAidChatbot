@@ -289,9 +289,9 @@ def subscribe(req):
             subList = firebase.retrieveSub(x)
             for s in subList:
                 if s.get('fbId') == sender:
-                    msg = "You already subscribed to " + y.get('name')
+                    msg = "You already subscribed to " + y.get('name')+'.'
                     return msg
-            msg = "You are now subscribed to " + y.get('name')
+            msg = "You are now subscribed to " + y.get('name')+'.'
             subscription = {
                     "id": x,
                     "date": datetime.date.today().strftime("%Y-%m-%d"),
