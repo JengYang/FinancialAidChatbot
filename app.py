@@ -73,7 +73,8 @@ def makeWebhookResult(req):
         msg = subscribeType(req)
 
     elif req.get("queryResult").get("action") == "unsub":
-        msg = unsubscribe(req)
+        msg = "aaa"
+        #unsubscribe(req)
         
     elif req.get("queryResult").get("action") == "getAvailable":
         msg = availableFA(req)       
