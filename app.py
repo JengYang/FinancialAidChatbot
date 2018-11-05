@@ -290,18 +290,23 @@ def subscribe(req):
             
     for x,y in fa.items():
         if y.get('name').lower() == name.lower():
-            subList = firebase.retrieveSub(x)
-            for s in subList:
-                if s.get('fbId') == sender:
-                    msg = "You already subscribed to " + y.get('name')+'.'
-                    return msg
-            msg = "You are now subscribed to " + y.get('name')+'.'
             subscription = {
                     "id": x,
                     "date": datetime.date.today().strftime("%Y-%m-%d"),
                     "status": 'active',
                     "fbId": sender
                 }
+            subList = firebase.retrieveSub(x)
+            for s,t in subList.items():
+                if t.get('fbId') == sender:
+                    if t.get('status') == 'inactive':
+                        firebase.updateSub(subscription,s)
+                        msg = "You resubscribed to " + y.get('name') +'.'
+                    else:
+                        msg = "You already subscribed to " + y.get('name')+'.'
+                    return msg
+            msg = "You are now subscribed to " + y.get('name')+'.'
+            
             firebase.addSub(subscription)
     if not msg:
         msg = "I do not find any financial aid called " + name
