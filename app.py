@@ -68,6 +68,9 @@ def makeWebhookResult(req):
     }
     elif req.get("queryResult").get("action") == "sub":
         msg = subscribe(req)
+
+    elif req.get("queryResult").get("action") == "subType":
+        msg = subscribeType(req)
         
     elif req.get("queryResult").get("action") == "getAvailable":
         msg = availableFA(req)       
@@ -284,15 +287,7 @@ def subscribe(req):
     name = req.get("queryResult").get("parameters").get("financialAid")
     sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
     msg = ""
-    #testing
-    if not name:
-        if fa:
-            msg = "Which financial aid u want to subscribe?\n"
-            for x,y in fa.items():
-                msg +=  '\n\u2022 ' + y.get('name')
-        else:
-            msg = "There is no financial aid right now."
-    #end testing
+            
     for x,y in fa.items():
         if y.get('name').lower() == name.lower():
             subList = firebase.retrieveSub(x)
@@ -311,7 +306,44 @@ def subscribe(req):
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
-        
+
+def subscribeType(req):
+    firebase = firebaseCRUD()
+    fa = firebase.retrieveFAWithKey()
+    name = req.get("queryResult").get("parameters").get("financialAid")
+    if not name:
+        if fa:
+            msg = 'List of financial aid u can subscribe. Type "Subscribe" followed by the financial aid name to subscribe'
+            for x,y in fa.items():
+                msg +=  '\n\u2022 ' + y.get('name')
+        else:
+            msg = "There is no financial aid right now."
+    elif name == 'study loan':
+        if fa:
+            msg = 'List of study loan u can subscribe. Type "Subscribe" followed by the study loan name to subscribe'
+            for x,y in fa.items():
+                if y.get('type') == 'Study Loan' 
+                    msg +=  '\n\u2022 ' + y.get('name')
+        else:
+            msg = "There is no study loan right now."
+
+    elif name == 'Scholarship':
+        if fa:
+            msg = 'List of scholarship u can subscribe. Type "Subscribe" followed by the scholarship name to subscribe'
+            for x,y in fa.items():
+                if y.get('type') == 'scholarship' 
+                    msg +=  '\n\u2022 ' + y.get('name')
+        else:
+            msg = "There is no scholarship right now."
+
+    elif name == 'PTPTN':
+        if fa:
+            msg = 'List of PTPTN u can subscribe. Type "Subscribe" followed by the PTPTN name to subscribe'
+            for x,y in fa.items():
+                if y.get('type') == 'PTPTN' 
+                    msg +=  '\n\u2022 ' + y.get('name')
+        else:
+            msg = "There is no PTPTN right now."
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
