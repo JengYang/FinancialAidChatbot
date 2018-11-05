@@ -284,6 +284,15 @@ def subscribe(req):
     name = req.get("queryResult").get("parameters").get("financialAid")
     sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
     msg = ""
+    #testing
+    if not name:
+        if fa:
+            msg = "Which financial aid u want to subscribe?\n"
+            for x,y in fa:
+                msg +=  '\n\u2022 ' + y.get('name')
+        else:
+            msg = "There is no financial aid right now."
+    #end testing
     for x,y in fa.items():
         if y.get('name').lower() == name.lower():
             subList = firebase.retrieveSub(x)

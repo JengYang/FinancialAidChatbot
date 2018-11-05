@@ -18,4 +18,4 @@ def sendMsg():
                     fbbotw.post_text_message(s.get('fbId'),msg,'RESPONSE',None)      
     #fbbotw.post_text_message('2160418613974674',"Hi,XD",'RESPONSE',None) 
 
-sendMsg()
+
