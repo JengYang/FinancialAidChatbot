@@ -98,15 +98,15 @@ class firebaseCRUD:
         subId = self.retrieveNextSubId()
         self.db.child("Subscription").child(subscription['id']).child(subId).set(sub)
         
-    def updateSub(self,subscription,subId):
-        sub = {
-            "date": subscription['date'],
-            "status": subscription['status'],
-            "fbId": subscription['fbId']
-            }
-
-        self.db.child("Subscription").child(subscription['id']).child(subId).update(sub)
-
+##    def updateSub(self,subscription,subId):
+##        sub = {
+##            "date": subscription['date'],
+##            "status": subscription['status'],
+##            "fbId": subscription['fbId']
+##            }
+##
+##        self.db.child("Subscription").child(subscription['id']).child(subId).update(sub)
+##
     def retrieveNextSubId(self): #problem occur next id incorrect
         lastId = ""
         subIds = self.db.child("Subscription").get()
@@ -136,4 +136,8 @@ class firebaseCRUD:
                     for a,b in x.val().items():
                         sub[a]= b
         return sub
+
+    def deleteSub(self,subId):
+        self.db.child("Subscription").child(subscription['id']).child(subId).remove()
+
 
