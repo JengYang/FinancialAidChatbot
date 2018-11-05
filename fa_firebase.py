@@ -137,7 +137,7 @@ class firebaseCRUD:
                         sub[a]= b
         return sub
 
-    def deleteSub(self,subId):
-        self.db.child("Subscription").child(subscription['id']).child(subId).remove()
+    def deleteSub(self,subId,faId):
+        self.db.child("Subscription").child(faId).child(subId).remove()
 
 

@@ -364,7 +364,7 @@ def unsubscribe(req):
             subList = firebase.retrieveSub(x)
             for s,t in subList.items():
                 if t.get('fbId') == sender:
-                    firebase.deleteSub(s)
+                    firebase.deleteSub(s,x)
                     msg = "You unsubscribed to " + y.get('name')+'.'
     if not msg:
         msg = "I do not find any financial aid called " + name
