@@ -127,5 +127,4 @@ class firebaseCRUD:
                     for item in x.val().values():
                         sub.append(item)
         return sub
-firebase = firebaseCRUD()
-print(firebase.retrieveNextSubId())
+
