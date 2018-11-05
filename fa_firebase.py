@@ -121,10 +121,11 @@ class firebaseCRUD:
     def retrieveSub(self,faId): 
         sub = []
         subs = self.db.child("Subscription").get()
-        for x in subs.each():
-            if x.key() == faId:
-                for item in x.val().values():
-                    sub.append(item)
+        if subs:
+            for x in subs.each():
+                if x.key() == faId:
+                    for item in x.val().values():
+                        sub.append(item)
         return sub
 firebase = firebaseCRUD()
 print(firebase.retrieveNextSubId())
