@@ -100,14 +100,16 @@ class firebaseCRUD:
         
     def retrieveNextSubId(self): #problem occur next id incorrect
         lastId = ""
-        subIds = self.db.child("Subscription").shallow().get()
+        subIds = self.db.child("Subscription").get()
         
         if subIds.val():
-            for x in subIds.val():
-                if not lastId:
-                    lastId = x
-                elif lastId < x:
-                    lastId = x
+            
+            for x in subIds.each():
+                for key in x.val().keys():
+                    if not lastId:
+                        lastId = key
+                    elif lastId < key:
+                        lastId = key
             splitId = re.split('(\d+)',lastId)
             lastId = int(splitId[1]) + 1
             lastId = 'Sub' + "{0:0=4d}".format(lastId)
@@ -116,15 +118,13 @@ class firebaseCRUD:
             lastId = "Sub0001"
         return lastId
 
-    def retrieveSub(self,faId): #chg list to dict probably
+    def retrieveSub(self,faId): 
         sub = []
         subs = self.db.child("Subscription").get()
         for x in subs.each():
             if x.key() == faId:
-                print(x.val().values())
                 for item in x.val().values():
                     sub.append(item)
         return sub
-
 firebase = firebaseCRUD()
-print(firebase.retrieveSub('F0003'))
+print(firebase.retrieveNextSubId())

@@ -67,30 +67,7 @@ def makeWebhookResult(req):
                 ]
     }
     elif req.get("queryResult").get("action") == "sub":
-        firebase = firebaseCRUD()
-        fa = firebase.retrieveFAWithKey()
-        name = req.get("queryResult").get("parameters").get("financialAid")
-        sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
-        msg = ""
-        for x,y in fa.items():
-            if y.get('name').lower() == name.lower():
-                subList = firebase.retrieveSub(x)
-                for s in subList:
-                    if s.get('fbId') == sender:
-                        msg = "You already subscribed to " + y.get('name')
-                        return msg
-                msg = "You are now subscribed to " + y.get('name')
-                subscription = {
-                        "id": x,
-                        "date": datetime.date.today().strftime("%Y-%m-%d"),
-                        "status": 'active',
-                        "fbId": sender
-                    }
-                firebase.addSub(subscription)
-        if not msg:
-            msg = "I do not find any financial aid called " + name
-        return msg
-        
+        msg = subscribe(req)
         
     elif req.get("queryResult").get("action") == "getAvailable":
         msg = availableFA(req)       
@@ -300,6 +277,32 @@ def getProcedure(req):
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
+
+def subscribe(req):
+    firebase = firebaseCRUD()
+    fa = firebase.retrieveFAWithKey()
+    name = req.get("queryResult").get("parameters").get("financialAid")
+    sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
+    msg = ""
+    for x,y in fa.items():
+        if y.get('name').lower() == name.lower():
+            subList = firebase.retrieveSub(x)
+            for s in subList:
+                if s.get('fbId') == sender:
+                    msg = "You already subscribed to " + y.get('name')
+                    return msg
+            msg = "You are now subscribed to " + y.get('name')
+            subscription = {
+                    "id": x,
+                    "date": datetime.date.today().strftime("%Y-%m-%d"),
+                    "status": 'active',
+                    "fbId": sender
+                }
+            firebase.addSub(subscription)
+    if not msg:
+        msg = "I do not find any financial aid called " + name
+    return msg
+        
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
