@@ -133,7 +133,7 @@ class firebaseCRUD:
         if subs.val():
             for x in subs.each():
                 if x.key() == faId:
-                    for item in x.val():
-                        sub[item.keys()]=item.values()
+                    for a,b in x.val().items():
+                        sub[a]= b
         return sub
 
