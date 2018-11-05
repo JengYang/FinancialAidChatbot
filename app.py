@@ -350,6 +350,7 @@ def subscribeType(req):
                     msg +=  '\n\u2022 ' + y.get('name')
         else:
             msg = "There is no PTPTN right now."
+    return msg
 
 def unsubscribe(req):
     firebase = firebaseCRUD()
