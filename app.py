@@ -393,8 +393,8 @@ def unsubscribeType(req):
                         subscribed = True
                         msg +=  '\n\u2022 ' + y.get('name')
                         break
-                if subscribed == False:
-                    msg = "You did not subscribe any financial aid."
+            if subscribed == False:
+                msg = "You did not subscribe any financial aid."
         else:
             msg = "There is no financial aid right now."
     elif name == 'study loan':
@@ -408,8 +408,8 @@ def unsubscribeType(req):
                             subscribed = True
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
-                    if subscribed == False:
-                        msg = "You did not subscribe any study loan."
+            if subscribed == False:
+                msg = "You did not subscribe any study loan."
         else:
             msg = "There is no study loan right now."
     elif name == 'Scholarship':
@@ -423,8 +423,8 @@ def unsubscribeType(req):
                             subscribed = True
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
-                    if subscribed == False:
-                        msg = "You did not subscribe any scholarship."
+            if subscribed == False:
+                msg = "You did not subscribe any scholarship."
         else:
             msg = "There is no scholarship right now."
     elif name == 'PTPTN':
@@ -438,8 +438,8 @@ def unsubscribeType(req):
                             subscribed = True
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
-                    if subscribed == False:
-                        msg = "You did not subscribe any PTPTN."
+            if subscribed == False:
+                msg = "You did not subscribe any PTPTN."
         else:
             msg = "There is no PTPTN right now."
     return msg
