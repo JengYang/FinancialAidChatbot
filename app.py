@@ -337,7 +337,7 @@ def subscribeType(req):
                     msg +=  '\n\u2022 ' + y.get('name')
         else:
             msg = "There is no study loan right now."
-    elif name == 'Scholarship':
+    elif name == 'scholarship':
         if fa:
             msg = 'List of scholarship you can subscribe. Type "Subscribe" followed by the scholarship name to subscribe'
             for x,y in fa.items():
@@ -413,7 +413,7 @@ def unsubscribeType(req):
                 msg = "You did not subscribe any study loan."
         else:
             msg = "There is no study loan right now."
-    elif name == 'Scholarship':
+    elif name == 'scholarship':
         if fa:
             msg = 'List of scholarship you subscribed. Type "Unsubscribe" followed by the scholarship name to unsubscribe'
             for x,y in fa.items():
