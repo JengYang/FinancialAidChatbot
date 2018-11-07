@@ -361,15 +361,17 @@ def unsubscribe(req):
     name = req.get("queryResult").get("parameters").get("financialAid")
     sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
     msg = ""
-            
+    subscribed = False        
     for x,y in fa.items():
         if y.get('name').lower() == name.lower():
             subList = firebase.retrieveSub(x)
             for s,t in subList.items():
                 if t.get('fbId') == sender:
+                    subscribed = True
                     firebase.deleteSub(s,x)
                     msg = "You unsubscribed to " + y.get('name')+'.'
                     break
+            if subscribed = False:
                 msg = "You did not subscribed to " + y.get('name')
     if not msg:
         msg = "I do not find any financial aid called " + name
@@ -380,6 +382,7 @@ def unsubscribeType(req):
     fa = firebase.retrieveFAWithKey()
     name = req.get("queryResult").get("parameters").get("financialAid")
     sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
+    subscribed = False
     if not name:
         if fa:
             msg = 'List of financial aid you subscribed. Type "Unsubscribe" followed by the financial aid name to subscribe'
@@ -387,8 +390,10 @@ def unsubscribeType(req):
                 sub = firebase.retrieveSub(x)
                 for s,t in sub.items():
                     if t.get('fbId') == sender:
+                        subscribed = True
                         msg +=  '\n\u2022 ' + y.get('name')
                         break
+                if subscribed = False:
                     msg = "You did not subscribe any financial aid."
         else:
             msg = "There is no financial aid right now."
@@ -400,8 +405,10 @@ def unsubscribeType(req):
                     sub = firebase.retrieveSub(x)
                     for s,t in sub.items():
                         if t.get('fbId') == sender:
+                            subscribed = True
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
+                    if subscribed = False:
                         msg = "You did not subscribe any study loan."
         else:
             msg = "There is no study loan right now."
@@ -413,8 +420,10 @@ def unsubscribeType(req):
                     sub = firebase.retrieveSub(x)
                     for s,t in sub.items():
                         if t.get('fbId') == sender:
+                            subscribed = True
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
+                    if subscribed = False:
                         msg = "You did not subscribe any scholarship."
         else:
             msg = "There is no scholarship right now."
@@ -426,8 +435,10 @@ def unsubscribeType(req):
                     sub = firebase.retrieveSub(x)
                     for s,t in sub.items():
                         if t.get('fbId') == sender:
+                            subscribed = True
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
+                    if subscribed = False:
                         msg = "You did not subscribe any PTPTN."
         else:
             msg = "There is no PTPTN right now."
