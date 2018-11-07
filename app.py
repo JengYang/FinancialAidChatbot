@@ -385,7 +385,7 @@ def unsubscribeType(req):
     subscribed = False
     if not name:
         if fa:
-            msg = 'List of financial aid you subscribed. Type "Unsubscribe" followed by the financial aid name to subscribe'
+            msg = 'List of financial aid you subscribed. Type "Unsubscribe" followed by the financial aid name to unsubscribe'
             for x,y in fa.items():
                 sub = firebase.retrieveSub(x)
                 for s,t in sub.items():
@@ -399,7 +399,7 @@ def unsubscribeType(req):
             msg = "There is no financial aid right now."
     elif name == 'study loan':
         if fa:
-            msg = 'List of study loan you subscribed. Type "Unsubscribe" followed by the study loan name to subscribe'
+            msg = 'List of study loan you subscribed. Type "Unsubscribe" followed by the study loan name to unsubscribe'
             for x,y in fa.items():
                 if y.get('type') == 'Study Loan':
                     sub = firebase.retrieveSub(x)
@@ -414,7 +414,7 @@ def unsubscribeType(req):
             msg = "There is no study loan right now."
     elif name == 'Scholarship':
         if fa:
-            msg = 'List of scholarship you subscribed. Type "Unsubscribe" followed by the scholarship name to subscribe'
+            msg = 'List of scholarship you subscribed. Type "Unsubscribe" followed by the scholarship name to unsubscribe'
             for x,y in fa.items():
                 if y.get('type') == 'scholarship': 
                     sub = firebase.retrieveSub(x)
@@ -429,7 +429,7 @@ def unsubscribeType(req):
             msg = "There is no scholarship right now."
     elif name == 'PTPTN':
         if fa:
-            msg = 'List of PTPTN you subscribed. Type "Unsubscribe" followed by the PTPTN name to subscribe'
+            msg = 'List of PTPTN you subscribed. Type "Unsubscribe" followed by the PTPTN name to unsubscribe'
             for x,y in fa.items():
                 if y.get('type') == 'PTPTN':
                     sub = firebase.retrieveSub(x)
