@@ -371,7 +371,7 @@ def unsubscribe(req):
                     firebase.deleteSub(s,x)
                     msg = "You unsubscribed to " + y.get('name')+'.'
                     break
-            if subscribed = False:
+            if subscribed == False:
                 msg = "You did not subscribed to " + y.get('name')
     if not msg:
         msg = "I do not find any financial aid called " + name
@@ -393,7 +393,7 @@ def unsubscribeType(req):
                         subscribed = True
                         msg +=  '\n\u2022 ' + y.get('name')
                         break
-                if subscribed = False:
+                if subscribed == False:
                     msg = "You did not subscribe any financial aid."
         else:
             msg = "There is no financial aid right now."
@@ -408,7 +408,7 @@ def unsubscribeType(req):
                             subscribed = True
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
-                    if subscribed = False:
+                    if subscribed == False:
                         msg = "You did not subscribe any study loan."
         else:
             msg = "There is no study loan right now."
@@ -423,7 +423,7 @@ def unsubscribeType(req):
                             subscribed = True
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
-                    if subscribed = False:
+                    if subscribed == False:
                         msg = "You did not subscribe any scholarship."
         else:
             msg = "There is no scholarship right now."
@@ -438,7 +438,7 @@ def unsubscribeType(req):
                             subscribed = True
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
-                    if subscribed = False:
+                    if subscribed == False:
                         msg = "You did not subscribe any PTPTN."
         else:
             msg = "There is no PTPTN right now."
