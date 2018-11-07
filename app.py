@@ -385,7 +385,7 @@ def unsubscribeType(req):
             msg = 'List of financial aid you subscribed. Type "Unsubscribe" followed by the financial aid name to subscribe'
             for x,y in fa.items():
                 sub = firebase.retrieveSub(x)
-                for s,t in sub:
+                for s,t in sub.items():
                     if t.get('fbId') == sender:
                         msg +=  '\n\u2022 ' + y.get('name')
                         break
@@ -398,7 +398,7 @@ def unsubscribeType(req):
             for x,y in fa.items():
                 if y.get('type') == 'Study Loan':
                     sub = firebase.retrieveSub(x)
-                    for s,t in sub:
+                    for s,t in sub.items():
                         if t.get('fbId') == sender:
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
@@ -411,7 +411,7 @@ def unsubscribeType(req):
             for x,y in fa.items():
                 if y.get('type') == 'scholarship': 
                     sub = firebase.retrieveSub(x)
-                    for s,t in sub:
+                    for s,t in sub.items():
                         if t.get('fbId') == sender:
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
@@ -424,7 +424,7 @@ def unsubscribeType(req):
             for x,y in fa.items():
                 if y.get('type') == 'PTPTN':
                     sub = firebase.retrieveSub(x)
-                    for s,t in sub:
+                    for s,t in sub.items():
                         if t.get('fbId') == sender:
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
