@@ -383,6 +383,7 @@ def unsubscribeType(req):
     name = req.get("queryResult").get("parameters").get("financialAid")
     sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
     subscribed = False
+    msg = ''
     if not name:
         if fa:
             msg = 'List of financial aid you subscribed. Type "Unsubscribe" followed by the financial aid name to unsubscribe'
