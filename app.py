@@ -370,7 +370,7 @@ def unsubscribe(req):
                     firebase.deleteSub(s,x)
                     msg = "You unsubscribed to " + y.get('name')+'.'
                     break
-            msg = "You did not subscribed to " + y.get('name')
+                msg = "You did not subscribed to " + y.get('name')
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
@@ -389,7 +389,7 @@ def unsubscribeType(req):
                     if t.get('fbId') == sender:
                         msg +=  '\n\u2022 ' + y.get('name')
                         break
-                msg = "You did not subscribe any financial aid."
+                    msg = "You did not subscribe any financial aid."
         else:
             msg = "There is no financial aid right now."
     elif name == 'study loan':
@@ -402,7 +402,7 @@ def unsubscribeType(req):
                         if t.get('fbId') == sender:
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
-                    msg = "You did not subscribe any study loan."
+                        msg = "You did not subscribe any study loan."
         else:
             msg = "There is no study loan right now."
     elif name == 'Scholarship':
@@ -415,7 +415,7 @@ def unsubscribeType(req):
                         if t.get('fbId') == sender:
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
-                    msg = "You did not subscribe any scholarship."
+                        msg = "You did not subscribe any scholarship."
         else:
             msg = "There is no scholarship right now."
     elif name == 'PTPTN':
@@ -428,7 +428,7 @@ def unsubscribeType(req):
                         if t.get('fbId') == sender:
                             msg +=  '\n\u2022 ' + y.get('name')
                             break
-                    msg = "You did not subscribe any PTPTN."
+                        msg = "You did not subscribe any PTPTN."
         else:
             msg = "There is no PTPTN right now."
     return msg
