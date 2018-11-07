@@ -341,7 +341,7 @@ def subscribeType(req):
         if fa:
             msg = 'List of scholarship you can subscribe. Type "Subscribe" followed by the scholarship name to subscribe'
             for x,y in fa.items():
-                if y.get('type') == 'scholarship': 
+                if y.get('type') == 'Scholarship': 
                     msg +=  '\n\u2022 ' + y.get('name')
         else:
             msg = "There is no scholarship right now."
@@ -417,7 +417,7 @@ def unsubscribeType(req):
         if fa:
             msg = 'List of scholarship you subscribed. Type "Unsubscribe" followed by the scholarship name to unsubscribe'
             for x,y in fa.items():
-                if y.get('type') == 'scholarship': 
+                if y.get('type') == 'Scholarship': 
                     sub = firebase.retrieveSub(x)
                     for s,t in sub.items():
                         if t.get('fbId') == sender:
