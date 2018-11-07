@@ -366,9 +366,12 @@ def unsubscribe(req):
                 if t.get('fbId') == sender:
                     firebase.deleteSub(s,x)
                     msg = "You unsubscribed to " + y.get('name')+'.'
+                    break
+            msg = "You did not subscribed to " + y.get('name')
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
+#1 more unsubscribe type
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
