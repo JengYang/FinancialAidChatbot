@@ -74,6 +74,9 @@ def makeWebhookResult(req):
 
     elif req.get("queryResult").get("action") == "unsub":
         msg = unsubscribe(req)
+
+    elif req.get("queryResult").get("action") == "unsubType":
+        msg = unsubscribeType(req)
         
     elif req.get("queryResult").get("action") == "getAvailable":
         msg = availableFA(req)       
@@ -321,14 +324,14 @@ def subscribeType(req):
     name = req.get("queryResult").get("parameters").get("financialAid")
     if not name:
         if fa:
-            msg = 'List of financial aid u can subscribe. Type "Subscribe" followed by the financial aid name to subscribe'
+            msg = 'List of financial aid you can subscribe. Type "Subscribe" followed by the financial aid name to subscribe'
             for x,y in fa.items():
                 msg +=  '\n\u2022 ' + y.get('name')
         else:
             msg = "There is no financial aid right now."
     elif name == 'study loan':
         if fa:
-            msg = 'List of study loan u can subscribe. Type "Subscribe" followed by the study loan name to subscribe'
+            msg = 'List of study loan you can subscribe. Type "Subscribe" followed by the study loan name to subscribe'
             for x,y in fa.items():
                 if y.get('type') == 'Study Loan': 
                     msg +=  '\n\u2022 ' + y.get('name')
@@ -336,7 +339,7 @@ def subscribeType(req):
             msg = "There is no study loan right now."
     elif name == 'Scholarship':
         if fa:
-            msg = 'List of scholarship u can subscribe. Type "Subscribe" followed by the scholarship name to subscribe'
+            msg = 'List of scholarship you can subscribe. Type "Subscribe" followed by the scholarship name to subscribe'
             for x,y in fa.items():
                 if y.get('type') == 'scholarship': 
                     msg +=  '\n\u2022 ' + y.get('name')
@@ -344,7 +347,7 @@ def subscribeType(req):
             msg = "There is no scholarship right now."
     elif name == 'PTPTN':
         if fa:
-            msg = 'List of PTPTN u can subscribe. Type "Subscribe" followed by the PTPTN name to subscribe'
+            msg = 'List of PTPTN you can subscribe. Type "Subscribe" followed by the PTPTN name to subscribe'
             for x,y in fa.items():
                 if y.get('type') == 'PTPTN':
                     msg +=  '\n\u2022 ' + y.get('name')
@@ -371,7 +374,64 @@ def unsubscribe(req):
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
-#1 more unsubscribe type
+
+def unsubscribeType(req):
+    firebase = firebaseCRUD()
+    fa = firebase.retrieveFAWithKey()
+    name = req.get("queryResult").get("parameters").get("financialAid")
+    sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
+    if not name:
+        if fa:
+            msg = 'List of financial aid you subscribed. Type "Unsubscribe" followed by the financial aid name to subscribe'
+            for x,y in fa.items():
+                sub = firebase.retrieveSub(x)
+                for s,t in sub:
+                    if t.get('fbId') == sender:
+                        msg +=  '\n\u2022 ' + y.get('name')
+                        break
+                msg = "You did not subscribe any financial aid."
+        else:
+            msg = "There is no financial aid right now."
+    elif name == 'study loan':
+        if fa:
+            msg = 'List of study loan you subscribed. Type "Unsubscribe" followed by the study loan name to subscribe'
+            for x,y in fa.items():
+                if y.get('type') == 'Study Loan':
+                    sub = firebase.retrieveSub(x)
+                    for s,t in sub:
+                        if t.get('fbId') == sender:
+                            msg +=  '\n\u2022 ' + y.get('name')
+                            break
+                    msg = "You did not subscribe any study loan."
+        else:
+            msg = "There is no study loan right now."
+    elif name == 'Scholarship':
+        if fa:
+            msg = 'List of scholarship you subscribed. Type "Unsubscribe" followed by the scholarship name to subscribe'
+            for x,y in fa.items():
+                if y.get('type') == 'scholarship': 
+                    sub = firebase.retrieveSub(x)
+                    for s,t in sub:
+                        if t.get('fbId') == sender:
+                            msg +=  '\n\u2022 ' + y.get('name')
+                            break
+                    msg = "You did not subscribe any scholarship."
+        else:
+            msg = "There is no scholarship right now."
+    elif name == 'PTPTN':
+        if fa:
+            msg = 'List of PTPTN you subscribed. Type "Unsubscribe" followed by the PTPTN name to subscribe'
+            for x,y in fa.items():
+                if y.get('type') == 'PTPTN':
+                    sub = firebase.retrieveSub(x)
+                    for s,t in sub:
+                        if t.get('fbId') == sender:
+                            msg +=  '\n\u2022 ' + y.get('name')
+                            break
+                    msg = "You did not subscribe any PTPTN."
+        else:
+            msg = "There is no PTPTN right now."
+    return msg
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
