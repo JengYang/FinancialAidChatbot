@@ -13,7 +13,6 @@ def sendMsg():
         
         if datetime.datetime.strptime(b.get('startDate'),"%Y-%m-%d").date() == present:
             sub = firebase.retrieveSub(a)
-            print("aaaa")
             print(datetime.datetime.strptime(b.get('startDate'),"%Y-%m-%d").date())
             for s in sub.values():
                 #if s.get('status') == 'active': #if status is needed
@@ -24,10 +23,8 @@ def sendMsg():
             for s in sub.values():
                 msg = b.get('name')+" application ends today. Apply now." 
                 fbbotw.post_text_message(s.get('fbId'),msg,'RESPONSE',None)
-        else:
-            #print(datetime.datetime.strptime(b.get('startDate'),"%Y-%m-%d").date())
-            print("weird")
-fbbotw.post_text_message('2160418613974674',"Hi,XD",'RESPONSE',None) 
+        
+#fbbotw.post_text_message('2160418613974674',"Hi,XD",'RESPONSE',None) 
 
-sendMsg()
+#sendMsg()
 
