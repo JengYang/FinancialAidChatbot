@@ -21,7 +21,9 @@ def sendMsg():
             sub = firebase.retrieveSub(a)
             for s in sub.values():
                 msg = b.get('name')+" application ends today. Apply now." 
-                fbbotw.post_text_message(s.get('fbId'),msg,'RESPONSE',None)      
+                fbbotw.post_text_message(s.get('fbId'),msg,'RESPONSE',None)
+        else:
+            print("ssss")
 #fbbotw.post_text_message('2160418613974674',"Hi,XD",'RESPONSE',None) 
 
 sendMsg()
