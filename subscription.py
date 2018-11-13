@@ -14,6 +14,7 @@ def sendMsg():
         if datetime.datetime.strptime(b.get('startDate'),"%Y-%m-%d").date() == present:
             sub = firebase.retrieveSub(a)
             for s in sub:
+                print(s)
                 #if s.get('status') == 'active': #if status is needed
                 msg = b.get('name')+" application starts today. Apply now."
                 fbbotw.post_text_message(s.get('fbId'),msg,'RESPONSE',None) 
