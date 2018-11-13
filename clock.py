@@ -3,7 +3,7 @@ import subscription
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('cron', day_of_week='0-6', hour=8)
+@sched.scheduled_job('cron', day_of_week='0-6', hour=20)
 def scheduled_job():
     subscription.sendMsg()
 
