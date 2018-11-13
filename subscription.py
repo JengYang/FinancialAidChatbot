@@ -1,4 +1,4 @@
-#from fbbotw import fbbotw
+from fbbotw import fbbotw
 from fa_firebase import firebaseCRUD
 import datetime
 #add new code for subscription in future
