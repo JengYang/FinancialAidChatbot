@@ -13,6 +13,8 @@ def sendMsg():
         
         if datetime.datetime.strptime(b.get('startDate'),"%Y-%m-%d").date() == present:
             sub = firebase.retrieveSub(a)
+            print("aaaa")
+            print(datetime.datetime.strptime(b.get('startDate'),"%Y-%m-%d").date())
             for s in sub.values():
                 #if s.get('status') == 'active': #if status is needed
                 msg = b.get('name')+" application starts today. Apply now."
