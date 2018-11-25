@@ -238,6 +238,7 @@ def getPeriod(req):
     fa = firebase.retrieveFAWithKey()
     name = req.get("queryResult").get("parameters").get("financialAid")
     msg = ""
+    subscribed = False
     sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
     for x,y in fa.items():
         if y.get('name').lower() == name.lower():
@@ -245,8 +246,10 @@ def getPeriod(req):
             msg += 'from ' + y.get('startDate') + ' to ' + y.get('endDate')
             sub = firebase.retrieveSub(x)
             for a,b in sub.items():
-                if b.get('fbId') != sender:
-                    msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
+                if b.get('fbId') == sender:
+                    subscribed = True
+            if subscribed == False:
+                msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
     if not msg:
