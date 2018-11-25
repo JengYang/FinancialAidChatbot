@@ -226,7 +226,7 @@ def getAmt(req):
             if x.get('pdfToken') != 'None':
                 #self.specific = True
                 #fbbotw.post_text_message('2160418613974674','file','RESPONSE',None) 
-                file = firebase.getPdf(x.get('name'),x.get('pdfToken'))
+                file = firebase.getPdf(x.get('name')+".pdf",x.get('pdfToken'))
                # print(file)
                 
                 fbbotw.post_file_attachment(fbid = sender, file_url=file)
