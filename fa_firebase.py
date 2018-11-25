@@ -143,4 +143,4 @@ class firebaseCRUD:
         self.db.child("Subscription").child(faId).child(subId).remove()
 
     def getPdf(self,filename):
-        storage.child("pdf/"+filename).download(filename)
+        self.storage.child("pdf/"+filename).download(filename)
