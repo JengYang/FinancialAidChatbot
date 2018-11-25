@@ -229,7 +229,7 @@ def getAmt(req):
                 file = firebase.getPdf(x.get('name'),x.get('pdfToken'))
                # print(file)
                 
-                fbbotw.post_file_attachment(sender, file)
+                fbbotw.post_file_attachment(fbid = sender, file_url=file)
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
