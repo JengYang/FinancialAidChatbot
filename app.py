@@ -102,6 +102,7 @@ def makeWebhookResult(req):
             "fulfillmentMessages":[{
                 "payload":{
                     "facebook":{
+                        "text": msg,
                         "attachment":{
                             "type":"file",
                             "payload":{
