@@ -12,6 +12,8 @@ import datetime
 
 app = Flask(__name__)
 
+#specific = False
+
 @app.route('/')
 def index():
     return '<h1>App deployed</h1>'
@@ -222,11 +224,12 @@ def getAmt(req):
             ####
             sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
             if x.get('pdfToken') != 'None':
-                fbbotw.post_text_message('2160418613974674','file','RESPONSE',None) 
-                #file = firebase.getPdf(x.get('name'))
+                #self.specific = True
+                #fbbotw.post_text_message('2160418613974674','file','RESPONSE',None) 
+                file = firebase.getPdf(x.get('name'),x.get('pdfToken'))
                # print(file)
                 
-                #fbbotw.post_file_attachment(sender, file)
+                fbbotw.post_file_attachment(sender, file)
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
