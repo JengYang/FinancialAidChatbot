@@ -12,7 +12,7 @@ import datetime
 
 app = Flask(__name__)
 
-#specific = False
+specific = False
 
 @app.route('/')
 def index():
@@ -96,6 +96,22 @@ def makeWebhookResult(req):
         msg = getProcedure(req)
     elif req.get("queryResult").get("action") == "AllFA":
         msg = allFA(req)
+        
+    if self.specific == True:
+        return {
+            "fulfillmentMessages":[{
+                "payload":{
+                    "facebook":{
+                        "attachment":{
+                            "type":"file",
+                            "payload":{
+                                "url":"https://firebasestorage.googleapis.com/v0/b/joe-mlidnd.appspot.com/o/pdf%2FTHE%20STAR%20EDUCATION%20FUND.pdf?alt=media&token=73432292-a17a-45be-b177-3f4ebcd5c384"
+                                }
+                            }
+                        }
+                    }
+                }]
+            }
     return {
         "fulfillmentText":msg
         }
@@ -224,12 +240,12 @@ def getAmt(req):
             ####
             sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
             if x.get('pdfToken') != 'None':
-                #self.specific = True
+                self.specific = True
                 #fbbotw.post_text_message('2160418613974674','file','RESPONSE',None) 
-                file = firebase.getPdf(x.get('name')+".pdf",x.get('pdfToken'))
+                #file = firebase.getPdf(x.get('name')+".pdf",x.get('pdfToken'))
                # print(file)
                 
-                fbbotw.post_file_attachment(fbid = sender, file_url=file)
+                #fbbotw.post_file_attachment(fbid = sender, file_url=file)
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
