@@ -215,13 +215,20 @@ def availableFA(req):
 
 def getAmt(req):
     firebase = firebaseCRUD()
-    fa = firebase.retrieveFA()
+    fa = firebase.retrieveFAWithKey()
     name = req.get("queryResult").get("parameters").get("financialAid")
     msg = ""
-    for x in fa:
-        if x.get('name').lower() == name.lower():
+    sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
+    for x,y in fa.items():
+        if y.get('name').lower() == name.lower():
             msg = "The amount you can get are "
-            msg += x.get('offerAmt')
+            msg += y.get('offerAmt')
+            sub = firebase.retrieveSub(x)
+            for a,b in sub.items():
+                if b.get('fbId') != sender:
+                    msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
+            if y.get('website') != "None":
+                msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
@@ -231,10 +238,17 @@ def getPeriod(req):
     fa = firebase.retrieveFA()
     name = req.get("queryResult").get("parameters").get("financialAid")
     msg = ""
+    sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
     for x in fa:
         if x.get('name').lower() == name.lower():
             msg = "The application period of " + x.get('name') +' is '
             msg += 'from ' + x.get('startDate') + ' to ' + x.get('endDate')
+            sub = firebase.retrieveSub(x)
+            for a,b in sub.items():
+                if b.get('fbId') != sender:
+                    msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
+            if y.get('website') != "None":
+                msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
@@ -244,6 +258,7 @@ def getCriteria(req):
     fa = firebase.retrieveFAWithKey()
     name = req.get("queryResult").get("parameters").get("financialAid")
     msg = ""
+    sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
     for x,y in fa.items():
         if y.get('name').lower() == name.lower():
             faId = x
@@ -251,7 +266,14 @@ def getCriteria(req):
             msg = "The criteria of applying " + y.get('name') +' are:'
             for c in criteria:
                 msg += '\n\u2022 ' + c
+            sub = firebase.retrieveSub(x)
+            for a,b in sub.items():
+                if b.get('fbId') != sender:
+                    msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
+            if y.get('website') != "None":
+                msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
             break
+        
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
@@ -261,6 +283,7 @@ def getDocument(req):
     fa = firebase.retrieveFAWithKey()
     name = req.get("queryResult").get("parameters").get("financialAid")
     msg = ""
+    sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
     for x,y in fa.items():
         if y.get('name').lower() == name.lower():
             faId = x
@@ -268,6 +291,12 @@ def getDocument(req):
             msg = "The documents required to apply " + y.get('name') +' are:'
             for d in document:
                 msg += '\n\u2022 ' + d
+            sub = firebase.retrieveSub(x)
+            for a,b in sub.items():
+                if b.get('fbId') != sender:
+                    msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
+            if y.get('website') != "None":
+                msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
             break
     if not msg:
         msg = "I do not find any financial aid called " + name
@@ -278,6 +307,7 @@ def getProcedure(req):
     fa = firebase.retrieveFAWithKey()
     name = req.get("queryResult").get("parameters").get("financialAid")
     msg = ""
+    sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
     for x,y in fa.items():
         if y.get('name').lower() == name.lower():
             faId = x
@@ -285,6 +315,12 @@ def getProcedure(req):
             msg = "The procedure to apply " + y.get('name') +' are:'
             for p in procedure:
                 msg += '\n\u2022 ' + p
+            sub = firebase.retrieveSub(x)
+            for a,b in sub.items():
+                if b.get('fbId') != sender:
+                    msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
+            if y.get('website') != "None":
+                msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
             break
     if not msg:
         msg = "I do not find any financial aid called " + name

@@ -18,9 +18,6 @@ class firebaseCRUD:
 
     db = firebase.database()
 
-    storage = firebase.storage()
-
-
     def retrieveFA(self):
         fa = []
         fas = self.db.child("Financial_aid").get()
