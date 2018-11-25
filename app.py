@@ -239,10 +239,10 @@ def getPeriod(req):
     name = req.get("queryResult").get("parameters").get("financialAid")
     msg = ""
     sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
-    for x in fa:
-        if x.get('name').lower() == name.lower():
-            msg = "The application period of " + x.get('name') +' is '
-            msg += 'from ' + x.get('startDate') + ' to ' + x.get('endDate')
+    for x,y in fa.items():
+        if y.get('name').lower() == name.lower():
+            msg = "The application period of " + y.get('name') +' is '
+            msg += 'from ' + y.get('startDate') + ' to ' + y.get('endDate')
             sub = firebase.retrieveSub(x)
             for a,b in sub.items():
                 if b.get('fbId') != sender:
