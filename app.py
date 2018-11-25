@@ -221,8 +221,8 @@ def getAmt(req):
             msg += x.get('offerAmt')
             ####
             sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
-            #if x.get('pdfToken') != 'None':
-            fbbotw.post_text_message('2160418613974674','file','RESPONSE',None) 
+            if x.get('pdfToken') != 'None':
+                fbbotw.post_text_message('2160418613974674','file','RESPONSE',None) 
                 #file = firebase.getPdf(x.get('name'))
                # print(file)
                 
