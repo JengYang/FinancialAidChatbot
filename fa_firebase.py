@@ -18,6 +18,8 @@ class firebaseCRUD:
 
     db = firebase.database()
 
+    storage = firebase.storage()
+
 
     def retrieveFA(self):
         fa = []
@@ -140,4 +142,5 @@ class firebaseCRUD:
     def deleteSub(self,subId,faId):
         self.db.child("Subscription").child(faId).child(subId).remove()
 
-
+    def getPdf(self,filename):
+        storage.child("pdf/"+filename).download(filename)

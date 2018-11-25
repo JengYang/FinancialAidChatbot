@@ -1,4 +1,4 @@
-
+from fbbotw import fbbotw
 import urllib
 import json
 import os
@@ -219,6 +219,11 @@ def getAmt(req):
         if x.get('name').lower() == name.lower():
             msg = "The amount you can get are "
             msg += x.get('offerAmt')
+            ####
+            sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
+            if x.get('pdfToken') != 'None':
+                file = firebase.getPdf(x.get('name'))
+                fbbotw.post_file_attachment(sender, file)
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
