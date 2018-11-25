@@ -97,7 +97,7 @@ def makeWebhookResult(req):
     elif req.get("queryResult").get("action") == "AllFA":
         msg = allFA(req)
         
-    if self.specific == True:
+    if specific == True:
         return {
             "fulfillmentMessages":[{
                 "payload":{
@@ -240,7 +240,7 @@ def getAmt(req):
             ####
             sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
             if x.get('pdfToken') != 'None':
-                self.specific = True
+                specific = True
                 #fbbotw.post_text_message('2160418613974674','file','RESPONSE',None) 
                 #file = firebase.getPdf(x.get('name')+".pdf",x.get('pdfToken'))
                # print(file)
