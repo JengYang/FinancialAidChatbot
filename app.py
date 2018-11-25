@@ -96,7 +96,7 @@ def makeWebhookResult(req):
         msg = getProcedure(req)
     elif req.get("queryResult").get("action") == "AllFA":
         msg = allFA(req)
-        
+    specific = True
     if specific == True:
         return {
             "fulfillmentMessages":[{
