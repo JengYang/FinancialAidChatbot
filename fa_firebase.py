@@ -142,5 +142,5 @@ class firebaseCRUD:
     def deleteSub(self,subId,faId):
         self.db.child("Subscription").child(faId).child(subId).remove()
 
-    def getPdf(self,filename):
-        self.storage.child("pdf/"+filename).download(filename)
+    def getPdf(self,filename,token):
+        return self.storage.child("pdf/"+filename).get_url(token)
