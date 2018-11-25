@@ -223,6 +223,7 @@ def getAmt(req):
             sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
             if x.get('pdfToken') != 'None':
                 file = firebase.getPdf(x.get('name'))
+                print(file)
                 fbbotw.post_file_attachment(sender, file)
     if not msg:
         msg = "I do not find any financial aid called " + name
