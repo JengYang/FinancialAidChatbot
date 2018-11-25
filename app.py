@@ -235,7 +235,7 @@ def getAmt(req):
 
 def getPeriod(req):
     firebase = firebaseCRUD()
-    fa = firebase.retrieveFA()
+    fa = firebase.retrieveFAWithKey()
     name = req.get("queryResult").get("parameters").get("financialAid")
     msg = ""
     sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
