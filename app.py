@@ -112,9 +112,10 @@ def makeWebhookResult(req):
                     }
                 }]
             }
-    return {
-        "fulfillmentText":msg
-        }
+    else:
+        return {
+            "fulfillmentText":msg
+            }
 
 def allFA(req):
     firebase = firebaseCRUD()
