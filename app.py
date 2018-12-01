@@ -12,7 +12,8 @@ import datetime
 
 app = Flask(__name__)
 
-specific = False
+sub = False
+fileExist = False
 
 @app.route('/')
 def index():
@@ -34,6 +35,7 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
+    global sub = False
     if req.get("queryResult").get("action") == "financialAid": 
         #return {}
     #result = req.get("result")
@@ -96,7 +98,51 @@ def makeWebhookResult(req):
         msg = getProcedure(req)
     elif req.get("queryResult").get("action") == "AllFA":
         msg = allFA(req)
-
+    if global sub == True and global fileExist == True:
+        return {
+            "fulfillmentMessages":[
+                {
+                    "platform": "FACEBOOK",
+                    "quickReplies":{
+                        "title": msg,
+                        "quickReplies":[
+                            "Subscribe now",
+                            "Get Pdf file"  
+                            ]
+                       
+                        }
+                    
+                    }
+                ]
+            }
+    elif global sub == True:
+        return {
+            "fulfillmentMessages":[
+                {
+                    "platform": "FACEBOOK",
+                    "quickReplies":{
+                        "title": msg,
+                        "quickReplies":[
+                            "Subscribe now",  
+                            ]
+                        }
+                    }
+                ]
+            }
+    elif global fileExist == True:
+        return {
+            "fulfillmentMessages":[
+                {
+                    "platform": "FACEBOOK",
+                    "quickReplies":{
+                        "title": msg,
+                        "quickReplies":[
+                            "Get Pdf file"  
+                            ]             
+                        }
+                    }
+                ]
+            }
     return {
         "fulfillmentText":msg
         }
@@ -230,8 +276,11 @@ def getAmt(req):
                     subscribed = True
             if subscribed == False:
                 msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
+                global sub = True
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
+        if y.get('pdfToken')!= 'None':
+            global fileExist = True
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
@@ -252,6 +301,7 @@ def getPeriod(req):
                 if b.get('fbId') == sender:
                     subscribed = True
             if subscribed == False:
+                global sub = True
                 msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
@@ -278,6 +328,7 @@ def getCriteria(req):
                 if b.get('fbId') == sender:
                     subscribed = True
             if subscribed == False:
+                global sub = True
                 msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
@@ -306,6 +357,7 @@ def getDocument(req):
                 if b.get('fbId') == sender:
                     subscribed = True
             if subscribed == False:
+                global sub = True
                 msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
@@ -333,6 +385,7 @@ def getProcedure(req):
                 if b.get('fbId') == sender:
                     subscribed = True
             if subscribed == False:
+                global sub = True
                 msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
