@@ -101,6 +101,8 @@ def makeWebhookResult(req):
         msg = getProcedure(req)
     elif req.get("queryResult").get("action") == "AllFA":
         msg = allFA(req)
+    elif req.get("queryResult").get("action") == "subscribeQuickReply":
+        msg = subQuickReply(req)
 
     if subOpt == True and fileExist == True:
         return {
@@ -312,6 +314,9 @@ def getPeriod(req):
                 msg += "\n\nFor more information, you can subscribe to "+y.get('name')+" to receive updates."
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
+        if y.get('pdfToken')!= 'None':
+            global fileExist
+            fileExist = True
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
@@ -341,7 +346,9 @@ def getCriteria(req):
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
             break
-        
+        if y.get('pdfToken')!= 'None':
+            global fileExist
+            fileExist = True
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
@@ -371,6 +378,9 @@ def getDocument(req):
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
             break
+        if y.get('pdfToken')!= 'None':
+            global fileExist
+            fileExist = True
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
@@ -400,6 +410,9 @@ def getProcedure(req):
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
             break
+        if y.get('pdfToken')!= 'None':
+            global fileExist
+            fileExist = True
     if not msg:
         msg = "I do not find any financial aid called " + name
     return msg
@@ -562,6 +575,36 @@ def unsubscribeType(req):
             msg = "There is no PTPTN right now."
     return msg
 
+def subQuickReply(req):
+    firebase = firebaseCRUD()
+    fa = firebase.retrieveFAWithKey()
+    name = req.get("queryResult").get("outputContexts").get("parameters").get("financialAid")
+    sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
+    msg = ""
+            
+    for x,y in fa.items():
+        if y.get('name').lower() == name.lower():
+            subscription = {
+                    "id": x,
+                    "date": datetime.date.today().strftime("%Y-%m-%d"),
+                    #"status": 'active',
+                    "fbId": sender
+                }
+            subList = firebase.retrieveSub(x)
+            for s,t in subList.items():
+                if t.get('fbId') == sender:
+##                    if t.get('status') == 'inactive':
+##                        firebase.updateSub(subscription,s)
+##                        msg = "You resubscribed to " + y.get('name') +'.'
+##                    else:
+                    msg = "You already subscribed to " + y.get('name')+'.'
+                    return msg
+            msg = "You are now subscribed to " + y.get('name')+'.'
+            
+            firebase.addSub(subscription)
+    if not msg:
+        msg = "I do not find any financial aid called " + name
+    return msg
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
