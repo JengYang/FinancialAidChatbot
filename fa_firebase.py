@@ -18,6 +18,8 @@ class firebaseCRUD:
 
     db = firebase.database()
 
+    storage = firebase.storage()
+     
     def retrieveFA(self):
         fa = []
         fas = self.db.child("Financial_aid").get()
@@ -36,6 +38,9 @@ class firebaseCRUD:
                 #if x.key() == faId:
                 #fa.append(x.val())
         return fa
+
+    def getFaUrl(self,filename,token):
+        return self.storage.child("pdf/"+filename).get_url(token)
 
 
     #return list of criteria name
