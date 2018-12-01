@@ -270,6 +270,7 @@ def getAmt(req):
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
         if y.get('pdfToken')!= 'None':
+            msg += "\n\n Or you may get more information by requesting the pdf file."
             global fileExist
             fileExist = True
     if not msg:
@@ -298,6 +299,7 @@ def getPeriod(req):
             if y.get('website') != "None":
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
         if y.get('pdfToken')!= 'None':
+            msg += "\n\n Or you may get more information by requesting the pdf file."
             global fileExist
             fileExist = True
     if not msg:
@@ -330,6 +332,7 @@ def getCriteria(req):
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
             break
         if y.get('pdfToken')!= 'None':
+            msg += "\n\n Or you may get more information by requesting the pdf file."
             global fileExist
             fileExist = True
     if not msg:
@@ -362,6 +365,7 @@ def getDocument(req):
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
             break
         if y.get('pdfToken')!= 'None':
+            msg += "\n\n Or you may get more information by requesting the pdf file."
             global fileExist
             fileExist = True
     if not msg:
@@ -394,6 +398,7 @@ def getProcedure(req):
                 msg += "\n\nYou may also get more information about "+ y.get('name')+ " by visiting "+y.get('website')+'.'
             break
         if y.get('pdfToken')!= 'None':
+            msg += "\n\n Or you may get more information by requesting the pdf file."
             global fileExist
             fileExist = True
     if not msg:
