@@ -578,7 +578,11 @@ def unsubscribeType(req):
 def subQuickReply(req):
     firebase = firebaseCRUD()
     fa = firebase.retrieveFAWithKey()
-    name = req.get("queryResult").get("outputContexts").get("parameters").get("financialAid")
+    output = req.get("queryResult").get("outputContexts")
+    for context in output:
+        if 'financialAid' in  context.get('parameters'):
+            name = context.get('parameters').get('financialAid')
+            break
     sender = req.get("originalDetectIntentRequest").get("payload").get("data").get("sender").get("id")
     msg = ""
             
