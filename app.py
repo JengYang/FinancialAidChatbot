@@ -35,8 +35,8 @@ def webhook():
     return r
 
 def makeWebhookResult(req):
-    global sub
-    sub = False
+    global subOpt
+    subOpt = False
     if req.get("queryResult").get("action") == "financialAid": 
         #return {}
     #result = req.get("result")
