@@ -36,7 +36,9 @@ def webhook():
 
 def makeWebhookResult(req):
     global subOpt
+    global fileExist
     subOpt = False
+    fileExist = False
     if req.get("queryResult").get("action") == "financialAid": 
         #return {}
     #result = req.get("result")
@@ -99,8 +101,7 @@ def makeWebhookResult(req):
         msg = getProcedure(req)
     elif req.get("queryResult").get("action") == "AllFA":
         msg = allFA(req)
-    global subOpt
-    global fileExist
+
     if subOpt == True and fileExist == True:
         return {
             "fulfillmentMessages":[
