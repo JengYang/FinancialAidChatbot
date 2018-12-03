@@ -9,6 +9,7 @@ from flask import make_response
 from fa_firebase import firebaseCRUD
 from datetime import datetime as dt
 import datetime
+import navigation
 
 app = Flask(__name__)
 
@@ -132,6 +133,8 @@ def makeWebhookResult(req):
                     }
                 ]
             }
+    if not msg:
+        return navigation.makeWebhookResult(req)
     return {
         "fulfillmentText":msg
         }
